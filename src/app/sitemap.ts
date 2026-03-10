@@ -3,8 +3,6 @@ import envConfig, { locales } from '@/config'
 import { generateSlugUrl } from '@/lib/utils'
 import type { MetadataRoute } from 'next'
 
-export const dynamic = 'force-dynamic'
-
 const staticRoutes: MetadataRoute.Sitemap = [
   {
     url: '',
@@ -19,13 +17,14 @@ const staticRoutes: MetadataRoute.Sitemap = [
 ]
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+
   let dishList: any[] = []
 
   try {
     const result = await dishApiRequest.list()
     dishList = result?.payload?.data || []
   } catch (error) {
-    console.log('Sitemap API error:', error)
+    console.log('Sitemap fetch dish error:', error)
     dishList = []
   }
 
@@ -46,7 +45,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         id: dish.id,
         name: dish.name
       })}`,
-      lastModified: dish.updatedAt || new Date(),
+      lastModified: dish.updatedAt,
       changeFrequency: 'weekly',
       priority: 0.9
     }))
