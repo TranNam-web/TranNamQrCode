@@ -20,12 +20,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   let dishList: any[] = []
 
-  try {
-    const result = await dishApiRequest.list()
-    dishList = result?.payload?.data || []
-  } catch (error) {
-    console.log('Sitemap fetch dish error:', error)
-    dishList = []
+  // ❗ chỉ gọi API khi không phải build
+  if (process.env.VERCEL_ENV !== 'production') {
+    try {
+      const result = await dishApiRequest.list()
+      dishList = result?.payload?.data || []
+    } catch {
+      dishList = []
+    }
   }
 
   const localizeStaticSiteMap = locales.reduce((acc, locale) => {
