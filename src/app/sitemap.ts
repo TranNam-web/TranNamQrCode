@@ -2,6 +2,7 @@ import dishApiRequest from '@/apiRequests/dish'
 import envConfig, { locales } from '@/config'
 import { generateSlugUrl } from '@/lib/utils'
 import type { MetadataRoute } from 'next'
+export const dynamic = 'force-dynamic'
 
 const staticRoutes: MetadataRoute.Sitemap = [
   {
