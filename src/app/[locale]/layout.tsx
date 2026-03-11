@@ -17,6 +17,7 @@ import { baseOpenGraph } from '@/shared-metadata'
 import GoogleTag from '@/components/google-tag'
 import { routing } from '@/i18n/routing'
 import { notFound } from 'next/navigation'
+import { Analytics } from '@vercel/analytics/next'
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -90,6 +91,7 @@ export default async function RootLayout(
           </AppProvider>
         </NextIntlClientProvider>
         <GoogleTag />
+        <Analytics />
       </body>
     </html>
   )
